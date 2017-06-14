@@ -7,6 +7,6 @@ do
     imageVersion=`echo $line | cut -d ' ' -f 2`
     imageId=`echo $line | cut -d ' ' -f 3`
     shortName=${imageName##*/}
-    echo $shortName
-    docker save $imageId > $shortName.tar
+    echo -n $shortName
+    [[ -f $shortName.tar ]] && echo "$shortName.tar already exists" || eval "echo '' && docker save $imageId > $shortName.tar" 
 done
